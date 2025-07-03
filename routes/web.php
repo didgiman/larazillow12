@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\ListingController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -8,8 +9,12 @@ use Inertia\Inertia;
 //     return Inertia::render('Welcome');
 // })->name('home');
 
-Route::get('/', [IndexController::class, 'index']);
-Route::get('/hello', [IndexController::class, 'show']);
+Route::get('/', [IndexController::class, 'index'])->name('home');
+Route::get('/hello', [IndexController::class, 'show'])->name('show');
+
+Route::resource('listings', ListingController::class);
+    // ->only(['index', 'show', 'create', 'store']);
+    // ->except(['destroy'])
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');

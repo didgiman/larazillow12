@@ -123,6 +123,7 @@
 
 .dark {
     --background: hsl(0 0% 3.9%);
+    /* --background: hsl(0 84% 60%); */
     --foreground: hsl(0 0% 98%);
     --card: hsl(0 0% 3.9%);
     --card-foreground: hsl(0 0% 98%);
@@ -163,5 +164,20 @@
     }
     body {
         @apply bg-background text-foreground;
+    }
+}
+
+@layer components {
+    .label {
+        @apply block mb-1 text-gray-500 dark:text-gray-300 font-medium;
+    }
+    .input {
+        @apply bg-white block w-full p-2 rounded-md shadow-sm border border-gray-300 dark:border-gray-600 text-gray-500;
+    }
+    .btn {
+        @apply font-medium px-4 py-2 rounded-md;
+    }
+    .btn-primary {
+        @apply bg-indigo-600 hover:bg-indigo-500 text-white;
     }
 }
