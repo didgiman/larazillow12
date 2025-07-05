@@ -57,6 +57,11 @@ class HandleInertiaRequests extends Middleware
                 'info' => $request->session()->get('info'),
                 'listingToHighlight' => $request->session()->get('listingToHighlight'),
             ],
+            'user' => $request->user() ? [
+                'id' => $request->user()->id,
+                'name' => $request->user()->name,
+                'email' => $request->user()->email,
+            ] : null,
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
     }
