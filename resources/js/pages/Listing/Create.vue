@@ -95,7 +95,7 @@ function clearError(field: string): void {
       <ListingFormInput
         label="Street Nr"
         v-model="form.street_nr"
-        type="number"
+        type="text"
         name="street_nr"
         :error="form.errors.street_nr"
         @input="clearError"

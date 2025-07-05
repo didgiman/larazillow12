@@ -20,6 +20,8 @@ const submit = () => {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
+
+const loginWithSocial = (social: string) => window.location.href = '/login/' + social;
 </script>
 
 <template>
@@ -79,5 +81,10 @@ const submit = () => {
                 <TextLink :href="route('login')" class="underline underline-offset-4" :tabindex="6">Log in</TextLink>
             </div>
         </form>
+        <div class="text-sm">
+            <button @click="loginWithSocial('google')" class="w-full text-left hover:underline cursor-pointer mb-2">Register with Google</button>
+            <button @click="loginWithSocial('github')" class="w-full text-left hover:underline cursor-pointer mb-2">Register with Github</button>
+            <button @click="loginWithSocial('facebook')" class="w-full text-left hover:underline cursor-pointer mb-2">Register with Facebook</button>
+        </div>
     </AuthBase>
 </template>

@@ -15,6 +15,8 @@ const form = useForm({
 });
 
 const register = () => form.post(route('user-account.store'));
+
+const loginWithSocial = (social: string) => window.location.href = '/login/' + social;
 </script>
 
 
@@ -49,6 +51,11 @@ const register = () => form.post(route('user-account.store'));
                 <div class="mt-2 text-center">
                     <Link :href="route('course-login')" class="text-sm text-gray-500 hover:underline">Already have an account? Log in</Link>
                 </div>
+            </div>
+            <div class="mt-4">
+                 <button @click="loginWithSocial('google')" class="w-full text-left hover:underline cursor-pointer mb-2">Register with Google</button>
+                 <button @click="loginWithSocial('github')" class="w-full text-left hover:underline cursor-pointer mb-2">Register with Github</button>
+                 <button @click="loginWithSocial('facebook')" class="w-full text-left hover:underline cursor-pointer mb-2">Register with Facebook</button>
             </div>
         </div>
     </form>

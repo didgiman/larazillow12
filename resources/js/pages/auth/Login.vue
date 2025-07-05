@@ -25,6 +25,8 @@ const submit = () => {
         onFinish: () => form.reset('password'),
     });
 };
+
+const loginWithSocial = (social: string) => window.location.href = '/login/' + social;
 </script>
 
 <template>
@@ -89,5 +91,11 @@ const submit = () => {
                 <TextLink :href="route('register')" :tabindex="5">Sign up</TextLink>
             </div>
         </form>
+
+        <div class="text-sm">
+            <button @click="loginWithSocial('google')" class="w-full text-left hover:underline cursor-pointer mb-2">Log in with Google</button>
+            <button @click="loginWithSocial('github')" class="w-full text-left hover:underline cursor-pointer mb-2">Log in with Github</button>
+            <button @click="loginWithSocial('facebook')" class="w-full text-left hover:underline cursor-pointer mb-2">Log in with Facebook</button>
+        </div>
     </AuthBase>
 </template>

@@ -12,6 +12,8 @@ const form = useForm({
 });
 
 const login = () => form.post(route('course-login-store'))
+
+const loginWithSocial = (social: string) => window.location.href = '/login/' + social;
 </script>
 
 
@@ -29,10 +31,15 @@ const login = () => form.post(route('course-login-store'))
                 <div class="input-error" v-if="form.errors.password">{{ form.errors.password }}</div>
             </div>
             <div class="mt-4">
-                <button class="btn btn-primary w-full" type="submit">Login</button>
+                <button class="btn btn-primary w-full" type="submit">Log in</button>
                 <div class="mt-2 text-center">
                     <Link :href="route('user-account.create')" class="text-sm text-gray-500 hover:underline">New here? Create an account</Link>
                 </div>
+            </div>
+            <div class="mt-4">
+                 <button @click="loginWithSocial('google')" class="w-full text-left hover:underline cursor-pointer mb-2">Log in with Google</button>
+                 <button @click="loginWithSocial('github')" class="w-full text-left hover:underline cursor-pointer mb-2">Log in with Github</button>
+                 <button @click="loginWithSocial('facebook')" class="w-full text-left hover:underline cursor-pointer mb-2">Log in with Facebook</button>
             </div>
         </div>
     </form>
