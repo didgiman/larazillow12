@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('provider')->nullable();
-            $table->string('provider_id')->nullable()->unique();
+        Schema::table('listings', function (Blueprint $table) {
+            $table->foreignIdFor(\App\Models\User::class)
+                ->constrained('users');
         });
     }
 
@@ -22,9 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropUnique(['provider_id']);
-            $table->dropColumn(['provider', 'provider_id']);
+        Schema::table('listings', function (Blueprint $table) {
+            $table->dropConstrainedForeignIdFor(\App\Models\User::class);
         });
     }
 };
