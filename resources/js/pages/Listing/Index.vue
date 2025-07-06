@@ -26,6 +26,9 @@ const page = usePage<AppPageProps>();
 
 <template>
     <Filters :filters="filters" />
+    <div class="text-center mb-4">
+        {{ listings.total }} listing{{ listings.total === 1 ? '' : 's' }}
+    </div>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         <ListingComponent
             v-for="listing in listings.data"
@@ -36,7 +39,8 @@ const page = usePage<AppPageProps>();
             }"
         ></ListingComponent>
     </div>
-    <div v-if="listings.data.length" class="w-full flex justify-center my-4">
-        <Pagination :links="listings.links" />
+    <div v-if="listings.data.length" class="w-full my-4">
+        <!-- <Pagination :links="listings.links" /> -->
+        <Pagination :details="{ ...listings, data: [] }" />
     </div>
 </template>

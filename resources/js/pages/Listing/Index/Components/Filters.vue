@@ -38,7 +38,7 @@ const reset = () => {
 
 <template>
     <form @submit.prevent="filter">
-        <div class="mb-8 mt-4 flex flex-wrap gap-2">
+        <div class="mb-4 mt-4 flex flex-wrap gap-2">
             <div class="flex flex-nowrap items-center">
                 <input type="text" class="input-filter-l" placeholder="Price from" v-model.number="filterForm.priceFrom" />
                 <input type="text" class="input-filter-r" placeholder="Price to" v-model.number="filterForm.priceTo" />

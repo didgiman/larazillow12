@@ -77,6 +77,9 @@ export interface LaravelPagination<T> {
     total: number;
 }
 
+// Using Omit utility type to exclude 'data' from LaravelPagination
+export type PaginationMetaOmit<T = unknown> = Omit<LaravelPagination<T>, 'data'>;
+
 // Specific type for paginated listings
 export type PaginatedListings = LaravelPagination<Listing>;
 
