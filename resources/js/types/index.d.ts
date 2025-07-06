@@ -40,18 +40,53 @@ export interface User {
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
+    listings: Listing[];
 }
 
 export interface Listing {
-    id: number,
-    beds: number,
-    baths: number,
-    area: number,
-    street: string,
-    street_nr: number,
-    city: string,
-    code: number,
-    price: number
+    id: number;
+    beds: number;
+    baths: number;
+    area: number;
+    street: string;
+    street_nr: number;
+    city: string;
+    code: number;
+    price: number;
+    owner: User;
 }
 
+// Generic pagination interface for Laravel's LengthAwarePaginator
+export interface LaravelPagination<T> {
+    data: T[];
+    current_page: number;
+    first_page_url: string;
+    from: number | null;
+    last_page: number;
+    last_page_url: string;
+    links: {
+        url: string;
+        label: string;
+        active: boolean;
+    }[];
+    next_page_url: string | null;
+    path: string;
+    per_page: number;
+    prev_page_url: string | null;
+    to: number | null;
+    total: number;
+}
+
+// Specific type for paginated listings
+export type PaginatedListings = LaravelPagination<Listing>;
+
 export type BreadcrumbItemType = BreadcrumbItem;
+
+export interface ListingFilters {
+    priceFrom: number | null;
+    priceTo: number | null;
+    areaFrom: number | null;
+    areaTo: number | null;
+    beds: number | null;
+    baths: number | null;
+}

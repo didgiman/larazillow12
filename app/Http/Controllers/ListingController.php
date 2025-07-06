@@ -15,15 +15,68 @@ class ListingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         // Gate::authorize(
         //     'viewAny',
         //     Listing::class
         // );
 
+        $filters = $request->only([
+            'priceFrom', 'priceTo', 'beds', 'baths', 'areaFrom', 'areaTo'
+        ]);
+
+        // $query = Listing::with('owner')->orderBy('created_at', 'desc')
+        //     ->when(
+        //         $filters['priceFrom'] ?? false,
+        //         fn ($query, $value) => $query->where('price', '>=', $value)
+        //     )
+        //     ->when(
+        //         $filters['priceTo'] ?? false,
+        //         fn ($query, $value) => $query->where('price', '<=', $value)
+        //     )
+        //     ->when(
+        //         $filters['beds'] ?? false,
+        //         fn ($query, $value) => $query->where('beds', $value)
+        //     )
+        //     ->when(
+        //         $filters['baths'] ?? false,
+        //         fn ($query, $value) => $query->where('baths', $value)
+        //     )
+        //     ->when(
+        //         $filters['areaFrom'] ?? false,
+        //         fn ($query, $value) => $query->where('price', '>=', $value)
+        //     )
+        //     ->when(
+        //         $filters['areaTo'] ?? false,
+        //         fn ($query, $value) => $query->where('price', '<=', $value)
+        //     );
+
+        // if ($filters['priceFrom'] ?? false) {
+        //     $query->where('price', '>=', $filters['priceFrom']);
+        // }
+        // if ($filters['priceTo'] ?? false) {
+        //     $query->where('price', '<=', $filters['priceTo']);
+        // }
+        // if ($filters['beds'] ?? false) {
+        //     $query->where('beds', $filters['beds']);
+        // }
+        // if ($filters['baths'] ?? false) {
+        //     $query->where('baths', $filters['baths']);
+        // }
+        // if ($filters['areaFrom'] ?? false) {
+        //     $query->where('area', '>=', $filters['areaFrom']);
+        // }
+        // if ($filters['areaTo'] ?? false) {
+        //     $query->where('area', '<=', $filters['areaTo']);
+        // }
+
         return inertia('Listing/Index', [
-            'listings' => Listing::all()
+            'filters' => $filters,
+            'listings' => Listing::with('owner')->latest()
+                ->filter($filters) // filters scope in Listing model
+                ->paginate(10)
+                ->withQueryString()
         ]);
     }
 

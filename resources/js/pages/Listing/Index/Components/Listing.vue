@@ -16,12 +16,6 @@ const { monthlyPayment } = useMonthlyPayment(props.listing.price, 2.5, 25);
 <template>
     <Box>
         <div>
-            <!-- <Link :href="`/listings/${listing.id}`">
-                <ListingAddress :listing="listing" />
-            </Link> -->
-            <!-- <Link :href="route('listings.show', listing.id)" class="hover:underline">
-                <ListingAddress :listing="listing" />
-            </Link> -->
             <Link :href="route('listings.show', { listing: listing.id })" class="hover:underline">
                 <div class="flex items-center">
                     <Price :price="listing.price" class="text-2xl font-bold" />
@@ -30,17 +24,12 @@ const { monthlyPayment } = useMonthlyPayment(props.listing.price, 2.5, 25);
                 <ListingSpace :listing="listing" class="text-lg" />
                 <ListingAddress :listing="listing" class="text-gray-400" />
             </Link>
+            {{ listing.owner.name }}
         </div>
         <div>
-            <!-- <Link :href="`/listings/${listing.id}/edit`">
-                Edit
-            </Link> -->
             <Link :href="route('listings.edit', listing.id)"> Edit </Link>
         </div>
         <div>
-            <!-- <Link :href="`/listings/${listing.id}`" method="delete">
-                Delete
-            </Link> -->
             <Link :href="route('listings.destroy', listing.id)" method="delete"> Delete </Link>
         </div>
     </Box>

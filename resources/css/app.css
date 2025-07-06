@@ -169,18 +169,31 @@
 
 @layer components {
     .label {
-        @apply block mb-1 text-gray-500 dark:text-gray-300 font-medium;
+        @apply mb-1 block font-medium text-gray-500 dark:text-gray-300;
     }
     .input {
-        @apply bg-white block w-full p-2 rounded-md shadow-sm border border-gray-300 dark:border-gray-600 text-gray-500;
+        @apply block w-full rounded-md border border-gray-300 bg-white p-2 text-gray-500 shadow-sm dark:border-gray-600;
     }
     .input-error {
-        @apply text-red-500 dark:text-red-400 text-sm;
+        @apply text-sm text-red-500 dark:text-red-400;
     }
     .btn {
-        @apply font-medium px-4 py-2 rounded-md;
+        @apply rounded-md px-4 py-2 font-medium;
     }
     .btn-primary {
-        @apply bg-indigo-600 hover:bg-indigo-500 text-white;
+        @apply bg-indigo-600 text-white hover:bg-indigo-500;
+    }
+
+    /* Filters */
+    .input-filter-l {
+        @apply p-2 w-28 rounded-md rounded-r-none border border-gray-200 text-sm font-medium text-gray-600 placeholder:text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:placeholder:text-gray-600;
+    }
+
+    .input-filter-r {
+        @apply p-2 w-28 rounded-md rounded-l-none border border-l-0 border-gray-200 text-sm font-medium text-gray-600 placeholder:text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:placeholder:text-gray-600;
+    }
+
+    .btn-normal {
+        @apply bg-gray-600 text-white hover:bg-gray-500;
     }
 }
