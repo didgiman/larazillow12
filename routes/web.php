@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\RealtorListingController;
 use App\Http\Controllers\UserAccountController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -17,11 +18,7 @@ Route::get('/hello', [IndexController::class, 'show'])
     ->name('show');
 
 Route::resource('listings', ListingController::class)
-    ->only(['create', 'store', 'edit', 'update', 'destroy'])->middleware('auth');
-    // ->only(['index', 'show', 'create', 'store']);
-    // ->except(['destroy'])
-Route::resource('listings', ListingController::class)
-    ->except(['create', 'store', 'edit', 'update', 'destroy']);
+    ->only(['index', 'show']);
 
 
 
@@ -33,7 +30,16 @@ Route::delete('course/logout', [AuthController::class, 'destroy'])->name('course
 Route::resource('user-account', UserAccountController::class)
     ->only('create', 'store');
 
+Route::prefix('realtor')
+    ->name('realtor.')
+    ->middleware('auth')
+    ->group(function() {
+        Route::put('listings/{listing}/restore', [RealtorListingController::class, 'restore'])->name('listing.restore')->withTrashed();
 
+        Route::resource('listings', RealtorListingController::class)
+            ->only(['index', 'destroy', 'create', 'store', 'edit', 'update'])
+            ->withTrashed();
+    });
 
 
 Route::get('dashboard', function () {

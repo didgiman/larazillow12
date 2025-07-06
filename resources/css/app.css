@@ -178,10 +178,16 @@
         @apply text-sm text-red-500 dark:text-red-400;
     }
     .btn {
-        @apply rounded-md px-4 py-2 font-medium;
+        @apply rounded-md px-4 py-2 font-medium disabled:text-gray-500 disabled:cursor-not-allowed disabled:bg-gray-400 disabled:hover:!bg-gray-400;
     }
     .btn-primary {
         @apply bg-indigo-600 text-white hover:bg-indigo-500;
+    }
+    .btn-normal {
+        @apply bg-gray-600 text-white hover:bg-gray-500;
+    }
+    .btn-outline {
+        @apply border rounded-md shadow-sm border-gray-300 dark:border-gray-800 hover:border-gray-400 hover:bg-gray-50 dark:hover:border-gray-700 dark:hover:bg-gray-800;
     }
 
     /* Filters */
@@ -191,9 +197,5 @@
 
     .input-filter-r {
         @apply p-2 w-28 rounded-md rounded-l-none border border-l-0 border-gray-200 text-sm font-medium text-gray-600 placeholder:text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:placeholder:text-gray-600;
-    }
-
-    .btn-normal {
-        @apply bg-gray-600 text-white hover:bg-gray-500;
     }
 }

@@ -1,8 +1,5 @@
 <script lang="ts">
-    import MainLayout from '@/layouts/MainLayout.vue';
-    export default {
-        layout: MainLayout
-    }
+    
 </script>
 
 <script setup lang="ts">
@@ -28,7 +25,7 @@ function clearError(field: string): void {
 </script>
 
 <template>
-  <form @submit.prevent="form.post(route('listings.store'))">
+  <form @submit.prevent="form.post(route('realtor.listings.store'))">
     <div v-if="form.isDirty">There are unsaved form changes.</div>
     <div v-if="form.hasErrors">The form has validation errors</div>
     <div class="grid grid-cols-6 gap-4">
@@ -118,13 +115,3 @@ function clearError(field: string): void {
     </div>
   </form>
 </template>
-
-<style scoped>
-label {
-  margin-right: 2em;
-}
-
-div {
-  padding: 2px;
-}
-</style>

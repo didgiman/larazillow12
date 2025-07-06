@@ -2,13 +2,9 @@
 import { computed } from 'vue';
 import Pagination from '@/components/ui/pagination/Pagination.vue';
 import Filters from '@/pages/Listing/Index/Components/Filters.vue';
-export default {
-    layout: MainLayout,
-};
 </script>
 
 <script setup lang="ts">
-import MainLayout from '@/layouts/MainLayout.vue';
 import { usePage } from '@inertiajs/vue3';
 import ListingComponent from './Index/Components/Listing.vue';
 

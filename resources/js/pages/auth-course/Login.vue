@@ -1,9 +1,5 @@
 <script lang="ts">
-import MainLayout from '@/layouts/MainLayout.vue';
 import { Link, useForm } from '@inertiajs/vue3';
-export default {
-    layout: MainLayout,
-};
 </script>
 <script setup lang="ts">
 const form = useForm({

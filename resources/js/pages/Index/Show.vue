@@ -1,8 +1,5 @@
 <script lang="ts">
-    import MainLayout from '@/layouts/MainLayout.vue';
-    export default {
-        layout: MainLayout
-    }
+    
 </script>
 
 <script setup lang="ts">

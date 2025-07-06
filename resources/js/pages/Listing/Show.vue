@@ -2,10 +2,6 @@
 import ListingPrice from '@/components/Listing/ListingPrice.vue';
 import ListingSpace from '@/components/Listing/ListingSpace.vue';
 import Box from '@/components/ui/box/Box.vue';
-import MainLayout from '@/layouts/MainLayout.vue';
-export default {
-    layout: MainLayout,
-};
 </script>
 
 <script setup lang="ts">

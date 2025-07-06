@@ -34,11 +34,9 @@ const page = usePage<AppPageProps>();
                     <Link :href="route('listings.index')" class="text-xl font-bold text-indigo-600 dark:text-indigo-300 text-center">LaraZillow</Link>
                 </div>
                 <div v-if="user" class="flex items-center gap-4">
-                    <div class="text-xs text-gray-500">{{ user.name }}</div>
-                    <Link :href="route('listings.create')" class="btn btn-primary">+ Create Listing</Link>
-                    <div>
+                    <Link :href="route('realtor.listings.index')" class="text-xs text-gray-500">{{ user.name }}</Link>
+                    <Link :href="route('realtor.listings.create')" class="btn btn-primary">+ Create Listing</Link>
                     <Link :href="route('course-logout')" method="delete" class="cursor-pointer text-red-500">Logout</Link>
-                </div>
                 </div>
                 <div v-else class="flex items-center gap-4">
                     <Link :href="route('user-account.create')">Register</Link>

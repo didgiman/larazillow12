@@ -1,8 +1,5 @@
 <script lang="ts">
-    import MainLayout from '@/layouts/MainLayout.vue';
-    export default {
-        layout: MainLayout
-    }
+    
 </script>
 
 <script setup lang="ts">
@@ -31,7 +28,7 @@ function clearError(field: string): void {
     form.clearErrors(field as FormField);
 }
 
-const update = () => form.put(route('listings.update', props.listing.id));
+const update = () => form.put(route('realtor.listings.update', props.listing.id));
 </script>
 
 <template>
@@ -125,13 +122,3 @@ const update = () => form.put(route('listings.update', props.listing.id));
     </div>
   </form>
 </template>
-
-<style scoped>
-label {
-  margin-right: 2em;
-}
-
-div {
-  padding: 2px;
-}
-</style>

@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\User;
 use Inertia\Inertia;
+use Illuminate\Http\RedirectResponse;
 
 class SocialLoginController extends Controller
 {
-    public function redirectToProvider(string $provider)
+    public function redirectToProvider(string $provider): RedirectResponse
     {
         if (!in_array($provider, ['google', 'facebook', 'github'])) {
             abort(404);
