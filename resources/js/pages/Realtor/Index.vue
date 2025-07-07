@@ -3,11 +3,13 @@ import ListingAddress from '@/components/Listing/ListingAddress.vue';
 import ListingPrice from '@/components/Listing/ListingPrice.vue';
 import ListingSpace from '@/components/Listing/ListingSpace.vue';
 import Box from '@/components/ui/box/Box.vue';
+import Button from '@/components/ui/button/Button.vue';
 import Pagination from '@/components/ui/pagination/Pagination.vue';
+import MainLayout from '@/layouts/MainLayout.vue';
 import { PaginatedListings } from '@/types';
 import { Link } from '@inertiajs/vue3';
+import { ArchiveRestore, Images, ScanEye, SquarePen, Trash2 } from 'lucide-vue-next';
 import RealtorFilters from './Index/Components/RealtorFilters.vue';
-import MainLayout from '@/layouts/MainLayout.vue';
 
 defineProps<{
     listings: PaginatedListings;
@@ -36,24 +38,32 @@ defineProps<{
                         </div>
                         <ListingAddress :listing="listing" class="text-gray-500" />
                     </div>
-                    <div class="flex items-center gap-1 text-gray-600 dark:text-gray-300">
-                        <a :href="route('listings.show', { listing: listing.id })" class="btn btn-outline text-xs font-medium" target="_blank">Preview</a>
-                        <Link :href="route('realtor.listings.edit', { listing: listing.id })" class="btn btn-outline text-xs font-medium">Edit</Link>
-                        <Link
-                            v-if="!listing.deleted_at"
-                            class="btn btn-outline text-xs font-medium"
-                            :href="route('realtor.listings.destroy', { listing: listing.id })"
-                            method="delete"
-                            >Delete</Link
-                        >
-                        <Link
-                            v-else
-                            class="btn btn-outline text-xs font-medium"
-                            :href="route('realtor.listing.restore', { listing: listing.id })"
-                            method="put"
-                            >Restore</Link
-                        >
-                    </div>
+                    <section>
+                        <div class="flex items-center gap-1 text-gray-600 dark:text-gray-300">
+                            <a :href="route('listings.show', { listing: listing.id })" target="_blank" title="Preview"><Button variant="outline"><ScanEye /></Button></a>
+                            <Link :href="route('realtor.listings.edit', { listing: listing.id })" title="Edit"><Button><SquarePen /></Button></Link>
+                            <Link
+                                v-if="!listing.deleted_at"
+                                :href="route('realtor.listings.destroy', { listing: listing.id })"
+                                method="delete"
+                                title="Delete"
+                                ><Button variant="destructive"><Trash2/></Button></Link
+                            >
+                            <Link
+                                v-else
+                                :href="route('realtor.listing.restore', { listing: listing.id })"
+                                method="put"
+                                title="Restore"
+                                ><Button variant="outline" class="!border-green-900"><ArchiveRestore /></Button></Link
+                            >
+                        </div>
+                        <div class="mt-2">
+                            <Link :href="route('realtor.listings.image.create', { listing: listing.id })" class="block w-full">
+                                <Button variant="outline" class="w-full"><Images />Images ({{ listing.images_count }})</Button>
+                            </Link>
+                            <!-- <Link :href="route('realtor.listings.image.create', { listing: listing.id })" class="block w-full btn-">Images</Link> -->
+                        </div>
+                    </section>
                 </div>
             </Box>
         </section>

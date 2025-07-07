@@ -56,6 +56,14 @@ export interface Listing {
     owner: User;
     deleted_at: Date;
     created_at: Date;
+    images: ListingImage[];
+    images_count?: number;
+}
+
+export interface ListingImage {
+    id: number;
+    filename: string,
+    src: string
 }
 
 // Generic pagination interface for Laravel's LengthAwarePaginator

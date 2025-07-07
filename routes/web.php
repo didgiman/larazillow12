@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\RealtorListingController;
+use App\Http\Controllers\RealtorListingImageController;
 use App\Http\Controllers\UserAccountController;
 use App\Models\Listing;
 use Illuminate\Support\Facades\Route;
@@ -23,10 +24,9 @@ Route::resource('listings', ListingController::class)
 
 
 
-Route::get('course/login', [AuthController::class, 'create'])->name('course-login');
-// ->name('course-login');
-Route::post('course/login', [AuthController::class, 'store'])->name('course-login-store');
-Route::delete('course/logout', [AuthController::class, 'destroy'])->name('course-logout');
+// Route::get('course/login', [AuthController::class, 'create'])->name('course-login');
+// Route::post('course/login', [AuthController::class, 'store'])->name('course-login-store');
+// Route::delete('course/logout', [AuthController::class, 'destroy'])->name('course-logout');
 
 Route::resource('user-account', UserAccountController::class)
     ->only('create', 'store');
@@ -40,14 +40,21 @@ Route::prefix('realtor')
         Route::resource('listings', RealtorListingController::class)
             ->only(['index', 'destroy', 'create', 'store', 'edit', 'update'])
             ->withTrashed();
+
+        Route::resource('listings.image', RealtorListingImageController::class)
+            ->only(['create', 'store', 'destroy']);
     });
 
 Route::prefix('dashboard')
     ->middleware(['auth', 'verified'])
     ->group(function() {
 
+        // Route::get('/', function() {
+        //     return Inertia::render('Dashboard');
+        // })->name('dashboard');
+
         Route::get('/', function() {
-            return Inertia::render('Dashboard');
+            return redirect()->route('home');
         })->name('dashboard');
 
         Route::get('listings', function() {

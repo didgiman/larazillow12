@@ -94,6 +94,8 @@ class ListingController extends Controller
             $listing
         );
 
+        $listing->load('images');
+
         return inertia('Listing/Show', [
             'listing' => $listing
         ]);
