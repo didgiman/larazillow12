@@ -3,17 +3,20 @@
 </script>
 
 <script setup lang="ts">
-    import { Link } from '@inertiajs/vue3';
+import MainLayout from '@/layouts/MainLayout.vue';
+import { Link } from '@inertiajs/vue3';
 
-    defineProps({
-        message: String,
-    });
+defineProps({
+    message: String,
+});
 </script>
 
 <template>
-    <div class="font-bold text-3xl">
-        Index
-    </div>
-    <Link href="/hello" class="underline">Show page</Link>
-    <p>{{ message }}</p>
+    <MainLayout>
+        <div class="font-bold text-3xl">
+            Index
+        </div>
+        <Link href="/hello" class="underline">Show page</Link>
+        <p>{{ message }}</p>
+    </MainLayout>
 </template>

@@ -55,6 +55,7 @@ export interface Listing {
     price: number;
     owner: User;
     deleted_at: Date;
+    created_at: Date;
 }
 
 // Generic pagination interface for Laravel's LengthAwarePaginator

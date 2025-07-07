@@ -5,6 +5,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\RealtorListingController;
 use App\Http\Controllers\UserAccountController;
+use App\Models\Listing;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -41,10 +42,28 @@ Route::prefix('realtor')
             ->withTrashed();
     });
 
+Route::prefix('dashboard')
+    ->middleware(['auth', 'verified'])
+    ->group(function() {
 
-Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+        Route::get('/', function() {
+            return Inertia::render('Dashboard');
+        })->name('dashboard');
+
+        Route::get('listings', function() {
+            $listings = Auth::user()->listings;
+            return Inertia::render('Dashboard/Listings/Index', ['listings' => $listings]);
+        })->name('dashboard.listings');
+
+        Route::get('listings/{listing}/edit', function(Listing $listing) {
+             return Inertia::render('Dashboard/Listings/Edit', ['listing' => $listing]);
+        })->name('dashboard.listings.edit');
+
+    });
+
+// Route::get('dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
