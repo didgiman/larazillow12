@@ -9,9 +9,10 @@ use Storage;
 
 class RealtorListingImageController extends Controller
 {
-    public function create(Listing $listing)
+    public function create($listing)
     {
-        $listing->load(['images']);
+        // $listing->load(['images']);
+        $listing = Listing::withTrashed()->with('images')->findOrFail($listing);
 
         return inertia(
             'Realtor/ListingImage/Create',
@@ -19,9 +20,11 @@ class RealtorListingImageController extends Controller
         );
     }
 
-    public function store(Listing $listing, Request $request)
-    {        
+    public function store($listing, Request $request)
+    {
         if ($request->hasFile('images')) {
+
+            $listing = Listing::withTrashed()->with('images')->findOrFail($listing);
 
             $request->validate([
                     'images.*' => 'mimes:jpg,png,jpeg,webp|max:5000'
@@ -38,9 +41,11 @@ class RealtorListingImageController extends Controller
                     'filename' => $path
                 ]));
             }
+            
+            return redirect()->back()->with('success', 'Image(s) uploaded.');
         }
 
-        return redirect()->back()->with('success', 'Image(s) uploaded.');
+        return redirect()->back()->with('warning', 'No image were uploaded.');
     }
 
     public function destroy($listing, ListingImage $image)
