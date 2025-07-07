@@ -23,6 +23,9 @@ class SocialLoginController extends Controller
 
     public function handleProviderCallback(string $provider)
     {
+        if (!request()->has('code') && !request()->has('state')) {
+            return redirect()->route('login')->with('error', 'Invalid callback request.');
+        }
 
         try {
             // $socialUser = Socialite::driver($provider)->user();
@@ -38,7 +41,8 @@ class SocialLoginController extends Controller
             $socialUser = $driver->user();
 
         } catch (\Exception $e) {
-            return redirect()->route('course-login')->with('error', 'Login with ' . ucfirst($provider) . ' failed.');
+            \Log::error('Socialite callback error: ' . $e->getMessage());
+            return redirect()->route('login')->with('error', 'Login with ' . ucfirst($provider) . ' failed.');
         }
 
         $user = User::where('provider', $provider)
@@ -67,8 +71,6 @@ class SocialLoginController extends Controller
         }
 
         Auth::login($user);
-        
-        \Log::info('Socialite callback uitgevoerd voor provider: ' . $provider);
 
         // return redirect(route('user.summary', absolute: false));
         return Inertia::location('/');

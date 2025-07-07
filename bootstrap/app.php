@@ -23,8 +23,15 @@ return Application::configure(basePath: dirname(__DIR__))
             AddLinkHeadersForPreloadedAssets::class,
         ]);
 
+        // https://laravel.com/docs/12.x/csrf#csrf-excluding-uris
+        $middleware->validateCsrfTokens(except: [
+            '/logout',
+            // '/realtor/listings/*',
+            // 'http://example.com/foo/*',
+        ]);
+
         // Override the default redirect to "/login" (why? idk...): https://laravel.com/docs/12.x/authentication#protecting-routes
-        $middleware->redirectGuestsTo('/course/login');
+        // $middleware->redirectGuestsTo('/course/login');
         // $middleware->redirectGuestsTo(fn (Request $request) => route('course-login'));
     })
     ->withExceptions(function (Exceptions $exceptions) {

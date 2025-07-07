@@ -36,11 +36,14 @@ const page = usePage<AppPageProps>();
                 <div v-if="user" class="flex items-center gap-4">
                     <Link :href="route('realtor.listings.index')" class="text-xs text-gray-500">{{ user.name }}</Link>
                     <Link :href="route('realtor.listings.create')" class="btn btn-primary">+ Create Listing</Link>
-                    <Link :href="route('course-logout')" method="delete" class="cursor-pointer text-red-500">Logout</Link>
+                    <!-- <Link :href="route('course-logout')" method="delete" class="cursor-pointer text-red-500">Logout</Link> -->
+                    <Link :href="route('logout')" method="post" class="cursor-pointer text-red-500">Logout</Link>
                 </div>
                 <div v-else class="flex items-center gap-4">
-                    <Link :href="route('user-account.create')">Register</Link>
-                    <Link :href="route('course-login')">Sign in</Link>
+                    <!-- <Link :href="route('user-account.create')">Register</Link> -->
+                    <Link :href="route('register')">Register</Link>
+                    <!-- <Link :href="route('course-login')">Sign in</Link> -->
+                    <Link :href="route('login')">Sign in</Link>
                 </div>
             </nav>
         </div>
