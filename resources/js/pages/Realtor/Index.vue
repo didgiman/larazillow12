@@ -39,8 +39,8 @@ defineProps<{
                         <ListingAddress :listing="listing" class="text-gray-500" />
                     </div>
                     <section>
-                        <div class="flex items-center gap-1 text-gray-600 dark:text-gray-300">
-                            <a :href="route('listings.show', { listing: listing.id })" target="_blank" title="Preview"><Button variant="outline"><ScanEye /></Button></a>
+                        <div class="flex items-center justify-end gap-1 text-gray-600 dark:text-gray-300">
+                            <a v-if="!listing.deleted_at" :href="route('listings.show', { listing: listing.id })" target="_blank" title="Preview"><Button variant="outline"><ScanEye /></Button></a>
                             <Link :href="route('realtor.listings.edit', { listing: listing.id })" title="Edit"><Button><SquarePen /></Button></Link>
                             <Link
                                 v-if="!listing.deleted_at"
