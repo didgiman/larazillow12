@@ -58,12 +58,24 @@ export interface Listing {
     created_at: Date;
     images: ListingImage[];
     images_count?: number;
+    offers: ListingOffer[];
+    offers_count?: number;
+    sold_at: Date;
 }
 
 export interface ListingImage {
     id: number;
     filename: string,
     src: string
+}
+
+export interface ListingOffer {
+    id: number,
+    amount: number,
+    created_at: Date,
+    accepted_at: Date,
+    rejected_at: Date,
+    bidder: User
 }
 
 // Generic pagination interface for Laravel's LengthAwarePaginator

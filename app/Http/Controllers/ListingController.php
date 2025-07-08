@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Auth;
 // use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Gate;
+use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
 {
@@ -75,6 +76,7 @@ class ListingController extends Controller
             'filters' => $filters,
             'listings' => Listing::with('owner')->latest()
                 ->filter($filters) // filters scope in Listing model
+                ->withoutSold()
                 ->paginate(10)
                 ->withQueryString()
         ]);
@@ -95,9 +97,11 @@ class ListingController extends Controller
         );
 
         $listing->load('images');
+        $offer = !Auth::user() ? null : $listing->offers()->byMe()->first();
 
         return inertia('Listing/Show', [
-            'listing' => $listing
+            'listing' => $listing,
+            'offerMade' => $offer
         ]);
     }
 }

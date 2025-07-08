@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\ListingOfferController;
+use App\Http\Controllers\RealtorListingAcceptOfferController;
 use App\Http\Controllers\RealtorListingController;
 use App\Http\Controllers\RealtorListingImageController;
 use App\Http\Controllers\UserAccountController;
@@ -22,7 +24,9 @@ Route::get('/hello', [IndexController::class, 'show'])
 Route::resource('listings', ListingController::class)
     ->only(['index', 'show']);
 
-
+Route::resource('listings.offer', ListingOfferController::class)
+    ->middleware('auth')
+    ->only(['store']);
 
 // Route::get('course/login', [AuthController::class, 'create'])->name('course-login');
 // Route::post('course/login', [AuthController::class, 'store'])->name('course-login-store');
@@ -38,8 +42,10 @@ Route::prefix('realtor')
         Route::put('listings/{listing}/restore', [RealtorListingController::class, 'restore'])->name('listing.restore')->withTrashed();
 
         Route::resource('listings', RealtorListingController::class)
-            ->only(['index', 'destroy', 'create', 'store', 'edit', 'update'])
+            // ->only(['index', 'destroy', 'create', 'store', 'edit', 'update'])
             ->withTrashed();
+
+        Route::name('offer.accept')->put('offer/{offer}/accept', RealtorListingAcceptOfferController::class);
 
         Route::resource('listings.image', RealtorListingImageController::class)
             ->only(['create', 'store', 'destroy']);

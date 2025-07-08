@@ -3,12 +3,17 @@ import ListingPrice from '@/components/Listing/ListingPrice.vue';
 import ListingSpace from '@/components/Listing/ListingSpace.vue';
 import Box from '@/components/ui/box/Box.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
+import MakeOffer from './Show/Components/MakeOffer.vue';
+import OfferMade from './Show/Components/OfferMade.vue';
 </script>
 
 <script setup lang="ts">
 import ListingAddress from '@/components/Listing/ListingAddress.vue';
 import type { Listing } from '@/types';
 import { ref } from 'vue';
+import { usePage } from '@inertiajs/vue3';
+import type { AppPageProps } from '@/types';
+import { computed } from 'vue';
 
 import { useMonthlyPayment } from '@/composables/useMonthlyPayment';
 
@@ -23,10 +28,20 @@ const duration = ref(25);
 // });
 
 const props = defineProps<{
-    listing: Listing
+    listing: Listing,
+    offerMade: {
+        id: number,
+        amount: number,
+        created_at: Date
+    }
 }>();
 
-const { monthlyPayment, totalPaid, totalInterest } = useMonthlyPayment(props.listing.price, interestRate, duration);
+const offer = ref(props.listing.price);
+
+const { monthlyPayment, totalPaid, totalInterest } = useMonthlyPayment(offer, interestRate, duration);
+
+const page = usePage<AppPageProps>();
+const user = computed(() => page.props.auth.user);
 </script>
 
 <template>
@@ -44,10 +59,6 @@ const { monthlyPayment, totalPaid, totalInterest } = useMonthlyPayment(props.lis
                     <ListingPrice :price="listing.price" class="text-2xl font-bold" />
                     <ListingSpace :listing="listing" class="text-lg" />
                     <ListingAddress :listing="listing" class="text-gray-400" />
-                </Box>
-                <Box>
-                    <template #header>Offer</template>
-                    Make an offer
                 </Box>
                 <Box>
                     <template #header> Monthly Payment </template>
@@ -83,7 +94,7 @@ const { monthlyPayment, totalPaid, totalInterest } = useMonthlyPayment(props.lis
                         </div>
                         <div class="mt-2 text-gray-500">
                             <div class="flex justify-between">
-                                <div>Principle paid:</div> <ListingPrice :price="listing.price" />
+                                <div>Principle paid:</div> <ListingPrice :price="offer" />
                             </div>
                         </div>
                         <div class="mt-2 text-gray-500">
@@ -93,6 +104,9 @@ const { monthlyPayment, totalPaid, totalInterest } = useMonthlyPayment(props.lis
                         </div>                            
                     </div>
                 </Box>
+
+                <MakeOffer v-if="user && !offerMade" :listing-id="listing.id" :price="listing.price" @offer-updated="offer = $event" />
+                <OfferMade v-if="user && offerMade" :offer="offerMade" />
             </div>
         </div>
     </MainLayout>

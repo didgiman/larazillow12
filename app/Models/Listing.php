@@ -27,10 +27,20 @@ class Listing extends Model
     {
         return $this->hasMany(ListingImage::class);
     }
+    public function offers(): HasMany
+    {
+        return $this->hasMany(Offer::class, 'listing_id');
+    }
 
     public function scopeMostRecent(Builder $query): Builder // This scope can be replaced by the built in "latest()" scope
     {
         return $query->orderBy('created_at', 'desc');
+    }
+
+    public function scopeWithoutSold(Builder $query): Builder
+    {
+        // return $query->doesntHave('offers')->orWhereHas('offers', fn(Builder $query) => $query->whereNull('accepted_at')->whereNull('rejected_at'));
+        return $query->whereNull('sold_at');
     }
 
     public function scopeFilter(Builder $query, array $filters): Builder

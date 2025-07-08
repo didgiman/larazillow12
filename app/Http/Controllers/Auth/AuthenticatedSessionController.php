@@ -18,6 +18,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(Request $request): Response
     {
+        // Store the previous URL as the intended URL if not already set
+        if (!$request->session()->has('url.intended')) {
+            $request->session()->put('url.intended', url()->previous());
+        }
+        
         return Inertia::render('auth/Login', [
             'canResetPassword' => Route::has('password.request'),
             'status' => $request->session()->get('status'),
@@ -46,6 +51,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        // return redirect('/');
+        return redirect()->back();
     }
 }

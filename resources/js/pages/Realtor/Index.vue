@@ -8,8 +8,9 @@ import Pagination from '@/components/ui/pagination/Pagination.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
 import { PaginatedListings } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { ArchiveRestore, Images, ScanEye, SquarePen, Trash2 } from 'lucide-vue-next';
+import { ArchiveRestore, HandCoins, Images, ScanEye, SquarePen, Trash2 } from 'lucide-vue-next';
 import RealtorFilters from './Index/Components/RealtorFilters.vue';
+import Badge from '@/components/ui/badge/Badge.vue';
 
 defineProps<{
     listings: PaginatedListings;
@@ -32,6 +33,7 @@ defineProps<{
             <Box v-for="listing in listings.data" :key="listing.id" :class="{ 'border-dashed !border-red-700': listing.deleted_at }">
                 <div class="flex flex-col justify-between gap-2 md:flex-row md:items-center">
                     <div :class="{ 'opacity-50': listing.deleted_at }">
+                        <Badge v-if="listing.sold_at != null" class="text-xs font-bold dark:bg-green-900 dark:text-green-200 bg-green-200 text-green-900 uppercase">Sold</Badge>
                         <div class="items-center gap-2 xl:flex">
                             <ListingPrice :price="listing.price" class="text-2xl font-medium" />
                             <ListingSpace :listing="listing" />
@@ -62,6 +64,11 @@ defineProps<{
                                 <Button variant="outline" class="w-full"><Images />Images ({{ listing.images_count }})</Button>
                             </Link>
                             <!-- <Link :href="route('realtor.listings.image.create', { listing: listing.id })" class="block w-full btn-">Images</Link> -->
+                        </div>
+                        <div class="mt-2">
+                            <Link :href="route('realtor.listings.show', { listing: listing.id })" class="block w-full">
+                                <Button variant="secondary" class="w-full"><HandCoins /> Offers ({{ listing.offers_count }})</Button>
+                            </Link>
                         </div>
                     </section>
                 </div>
