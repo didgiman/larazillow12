@@ -5,6 +5,7 @@ import Box from '@/components/ui/box/Box.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
 import MakeOffer from './Show/Components/MakeOffer.vue';
 import OfferMade from './Show/Components/OfferMade.vue';
+import EmptyState from '@/components/ui/empty-state/EmptyState.vue';
 </script>
 
 <script setup lang="ts">
@@ -47,12 +48,15 @@ const user = computed(() => page.props.auth.user);
 <template>
     <MainLayout>
         <div class="flex grid-cols-12 flex-col-reverse gap-4 md:grid">
-            <Box class="flex w-full items-center md:col-span-7">
-                <div v-if="listing.images.length" class="grid grid-cols-2 gap-1">
+            <Box v-if="listing.images.length" class="flex w-full items-center md:col-span-7">
+                <div class="grid grid-cols-2 gap-1">
                     <img v-for="image in listing.images" :key="image.id" :src="image.src" />
                 </div>
-                <div v-else class="w-full text-center font-medium text-gray-500">No Images</div>
             </Box>
+            <EmptyState v-else class="flex w-full items-center md:col-span-7">
+                No Images
+            </EmptyState>
+
             <div class="space-y-4 md:col-span-5">
                 <Box>
                     <template #header>Basic Info</template>

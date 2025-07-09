@@ -30,6 +30,12 @@ export type AppPageProps<T extends Record<string, unknown> = Record<string, unkn
         listingToHighlight: number;
     };
     sidebarOpen: boolean;
+    user: {
+        id: number,
+        name: string,
+        email: string,
+        notificationCount: number
+    }
 };
 
 export interface User {
@@ -115,3 +121,11 @@ export interface ListingFilters {
     beds: number | null;
     baths: number | null;
 }
+
+export interface Notification {
+    id: string,
+    data: Record<string, unknown>,
+    read_at: Date,
+    type: string
+}
+export type PaginatedNotifications = LaravelPagination<Notification>;

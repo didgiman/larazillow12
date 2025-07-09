@@ -11,6 +11,7 @@ import { Link } from '@inertiajs/vue3';
 import { ArchiveRestore, HandCoins, Images, ScanEye, SquarePen, Trash2 } from 'lucide-vue-next';
 import RealtorFilters from './Index/Components/RealtorFilters.vue';
 import Badge from '@/components/ui/badge/Badge.vue';
+import EmptyState from '@/components/ui/empty-state/EmptyState.vue';
 
 defineProps<{
     listings: PaginatedListings;
@@ -75,8 +76,9 @@ defineProps<{
                 </div>
             </Box>
         </section>
-        <section class="my-4 w-full">
+        <section v-if="listings.data.length" class="my-4 w-full">
             <Pagination :details="{ ...listings, data: [] }" />
         </section>
+        <EmptyState v-else>No listings yet</EmptyState>
     </MainLayout>
 </template>
