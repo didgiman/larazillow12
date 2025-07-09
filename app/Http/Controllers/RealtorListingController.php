@@ -31,6 +31,8 @@ class RealtorListingController extends Controller
 
     public function show(Listing $listing)
     {
+        Gate::authorize('viewAsOwner', $listing); // Owner-only view logic
+
         return inertia('Realtor/Show', ['listing' => $listing->load('offers', 'offers.bidder')]);
     }
 

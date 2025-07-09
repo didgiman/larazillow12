@@ -37,6 +37,14 @@ class ListingPolicy
     }
 
     /**
+     * Realtor view - only the owner can view (for management purposes)
+     */
+    public function viewAsOwner(?User $user, Listing $listing): bool
+    {
+        return $user && $user->id === $listing->user_id;
+    }
+
+    /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool

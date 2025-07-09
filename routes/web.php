@@ -47,7 +47,7 @@ Route::resource('user-account', UserAccountController::class)
 
 Route::prefix('realtor')
     ->name('realtor.')
-    ->middleware('auth')
+    ->middleware(['auth', 'verified'])
     ->group(function() {
         Route::put('listings/{listing}/restore', [RealtorListingController::class, 'restore'])->name('listing.restore')->withTrashed();
 
