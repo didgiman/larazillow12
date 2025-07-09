@@ -209,11 +209,14 @@
     }
 
     /* Filters */
+    .input-filter {
+        @apply p-2 rounded-md border border-gray-200 text-sm font-medium text-gray-600 placeholder:text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:placeholder:text-gray-600;
+    }
     .input-filter-l {
-        @apply p-2 w-28 rounded-md rounded-r-none border border-gray-200 text-sm font-medium text-gray-600 placeholder:text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:placeholder:text-gray-600;
+        @apply p-2 rounded-md rounded-r-none border border-gray-200 text-sm font-medium text-gray-600 placeholder:text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:placeholder:text-gray-600;
     }
 
     .input-filter-r {
-        @apply p-2 w-28 rounded-md rounded-l-none border border-l-0 border-gray-200 text-sm font-medium text-gray-600 placeholder:text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:placeholder:text-gray-600;
+        @apply p-2 rounded-md rounded-l-none border border-l-0 border-gray-200 text-sm font-medium text-gray-600 placeholder:text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:placeholder:text-gray-600;
     }
 }

@@ -17,6 +17,7 @@ defineProps<{
     filters: {
         deleted: boolean;
         active: boolean;
+        sold: string;
         by: string;
         order: string;
     };

@@ -13,7 +13,7 @@ class RealtorListingController extends Controller
     {
         $filters = [
             'deleted' => $request->boolean('deleted'),
-            ...$request->only(['by', 'order'])
+            ...$request->only(['sold', 'by', 'order'])
         ];
 
         // return inertia('Realtor/Index', ['listings' => Auth::user()->listings]);

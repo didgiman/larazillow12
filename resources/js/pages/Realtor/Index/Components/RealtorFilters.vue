@@ -32,6 +32,7 @@ const props = defineProps<{
     filters: {
         deleted: boolean,
         active: boolean,
+        sold: string,
         by: string,
         order: string
     }
@@ -40,6 +41,7 @@ const props = defineProps<{
 const filterForm = reactive({
     deleted: props.filters.deleted ?? false,
     active: props.filters.active ?? false,
+    sold: props.filters.sold ?? 'all',
     by: props.filters.by ?? 'created_at',
     order: props.filters.order ?? 'asc'
 });
@@ -68,16 +70,16 @@ watchDebounced(
 <template>
     <form>
         <div class="my-4 flex flex-wrap gap-4">
-            <div class="flex flex-nowrap items-center gap-2">
+            <div class="flex flex-nowrap items-center gap-3 input-filter px-4">
                 <input
                     v-model="filterForm.deleted"
                     id="deleted"
                     type="checkbox"
                     class="w-4- h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                 />
-                <label for="deleted">Deleted</label>
+                <label for="deleted">Incl. deleted</label>
             </div>
-            <div class="flex flex-nowrap items-center gap-2">
+            <!-- <div class="flex flex-nowrap items-center gap-3 input-filter px-4">
                 <input
                     v-model="filterForm.active"
                     id="active"
@@ -85,13 +87,48 @@ watchDebounced(
                     class="w-4- h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                 />
                 <label for="active">Active</label>
+            </div> -->
+            <div class="flex flex-nowrap items-center gap-3 input-filter px-4">
+                <div>
+                    Sold?
+                </div>
+                <div class="flex items-center">
+                    <input
+                        type="radio"
+                        v-model="filterForm.sold"
+                        id="sold-all"
+                        value="all"
+                        class="w-4- h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mr-1"
+                    />
+                    <label for="sold-all">All</label>
+                </div>
+                <div class="flex items-center">
+                    <input
+                        type="radio"
+                        v-model="filterForm.sold"
+                        id="sold-yes"
+                        value="yes"
+                        class="w-4- h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mr-1"
+                    />
+                    <label for="sold-yes">Yes</label>
+                </div>
+                <div class="flex items-center">
+                    <input
+                        type="radio"
+                        v-model="filterForm.sold"
+                        id="sold-no"
+                        value="no"
+                        class="w-4- h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mr-1"
+                    />
+                    <label for="sold-no">No</label>
+                </div>
             </div>
             <div>
-                <select class="input-filter-l w-24" v-model="filterForm.by">
+                <select class="input-filter-l w-26" v-model="filterForm.by">
                     <option value="created_at">Added</option>
                     <option value="price">Price</option>
                 </select>
-                <select class="input-filter-r w-24" v-model="filterForm.order">
+                <select class="input-filter-r w-26" v-model="filterForm.order">
                     <option v-for="option in sortOptions" :value="option.value" :key="option.value">{{ option.label }}</option>
                 </select>
             </div>

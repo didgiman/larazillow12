@@ -75,6 +75,10 @@ class Listing extends Model
                 fn ($query, $value) => $query->withTrashed()
             )
             ->when(
+                ($filters['sold'] ?? false) && ($filters['sold'] !== 'all'),
+                fn ($query) => $filters['sold'] === 'yes' ? $query->whereNotNull('sold_at') : $query->whereNull('sold_at')
+            )
+            ->when(
                 $filters['by'] ?? false,
                 fn ($query, $value) => !in_array($value, $this->sortable) ? $query : $query->orderBy($value, $filters['order'] ?? 'asc')
             );
